@@ -1,19 +1,10 @@
 "use client";
 
-import { SignInButton } from "@clerk/nextjs";
-import { Authenticated, Unauthenticated } from "convex/react";
-import { Content } from "./_component/content";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export default function TestPage() {
-    return (
-        <div>
-            <Unauthenticated>
-                <h1>Login</h1>
-                <SignInButton />
-            </Unauthenticated>
-            <Authenticated>
-                <Content />
-            </Authenticated>
-        </div>
-    );
+    const test = useCurrentUser();
+    console.log("🚀 ~ TestPage ~ test:", test);
+
+    return <div>ok</div>;
 }

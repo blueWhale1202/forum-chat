@@ -1,25 +1,41 @@
-import { ConvexError, v } from "convex/values";
+import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { getCurrentUserOrThrow } from "./users";
 
 export const send = mutation({
     args: { body: v.string() },
     handler: async (ctx, args) => {
-        const identity = await ctx.auth.getUserIdentity();
-        console.log("🚀 ~ handler:async ~ identity:", identity);
-        if (!identity) {
-            throw new ConvexError("Unauthenticated call to mutation");
-        }
-
-        await ctx.db.insert("messages", {
-            body: args.body,
-            author: identity.name ?? "Unknown",
-        });
+        const user = await getCurrentUserOrThrow(ctx);
+        await ctx.db.insert("messages", { body: args.body, userId: user._id });
     },
 });
 
 export const list = query({
     args: {},
     handler: async (ctx) => {
-        return await ctx.db.query("messages").collect();
+        const messages = await ctx.db.query("messages").collect();
+        return Promise.all(
+            messages.map(async (message) => {
+                // For each message in this channel, fetch the `User` who wrote it and
+                // insert their name into the `author` field.
+                const user = await ctx.db.get(message.userId);
+                return {
+                    author: user?.name ?? "deleted user",
+                    ...message,
+                };
+            }),
+        );
+    },
+});
+
+export const sentCount = query({
+    args: {},
+    handler: async (ctx) => {
+        const user = await getCurrentUserOrThrow(ctx);
+        const sent = await ctx.db
+            .query("messages")
+            .withIndex("byUserId", (q) => q.eq("userId", user._id))
+            .collect();
+        return sent.length;
     },
 });
