@@ -43,7 +43,7 @@ export const deleteFromClerk = internalMutation({
 
 export async function getCurrentUserOrThrow(ctx: QueryCtx) {
     const userRecord = await getCurrentUser(ctx);
-    if (!userRecord) throw new Error("Can't get current user");
+    if (!userRecord) throw new Error("Unauthorized");
     return userRecord;
 }
 
@@ -58,6 +58,6 @@ export async function getCurrentUser(ctx: QueryCtx) {
 async function userByExternalId(ctx: QueryCtx, externalId: string) {
     return await ctx.db
         .query("users")
-        .withIndex("byExternalId", (q) => q.eq("externalId", externalId))
+        .withIndex("by_external_id", (q) => q.eq("externalId", externalId))
         .unique();
 }
