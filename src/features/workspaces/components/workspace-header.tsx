@@ -57,7 +57,9 @@ export const WorkspaceHeader = ({ workspace, isAdmin }: Props) => {
                     <DropdownMenuSeparator />
                     {isAdmin && (
                         <DropdownMenuGroup>
-                            <DropdownMenuItem onClick={() => {}}>
+                            <DropdownMenuItem
+                                onClick={() => onOpen("invite", workspace)}
+                            >
                                 <p className="line-clamp-1">
                                     Invite people to {workspace.name}
                                 </p>

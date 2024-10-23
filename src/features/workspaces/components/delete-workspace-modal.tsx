@@ -19,25 +19,28 @@ import { toast } from "sonner";
 import { useModalStore } from "@/providers/modal-store-provider";
 
 import { useDeleteWorkspace } from "../api/use-delete-workspace";
+import { useGetWorkSpaces } from "../api/use-get-workspaces";
+import { useCurrentWorkSpace } from "../hooks/use-current-workspace";
 
 export const DeleteWorkspaceDialog = () => {
-    const { type, isOpen, onClose, workspace } = useModalStore(
-        (state) => state,
-    );
+    const { type, isOpen, onClose } = useModalStore((state) => state);
     const isOpenModal = isOpen && type === "delete-workspace";
+
+    const { data: currentWorkspace } = useCurrentWorkSpace();
+    const { data: workspaces } = useGetWorkSpaces();
 
     const { mutate, isPending } = useDeleteWorkspace();
 
     const router = useRouter();
 
-    if (!workspace) {
+    if (!currentWorkspace || !workspaces) {
         return null;
     }
 
     const onDelete = () => {
         mutate(
             {
-                id: workspace._id!,
+                id: currentWorkspace._id!,
             },
             {
                 onSuccess: () => {
@@ -54,7 +57,9 @@ export const DeleteWorkspaceDialog = () => {
                 <AlertDialogHeader>
                     <AlertDialogTitle>
                         Delete{" "}
-                        <span className="font-semibold">{workspace.name}</span>{" "}
+                        <span className="font-semibold">
+                            {currentWorkspace.name}
+                        </span>{" "}
                         workspace?
                     </AlertDialogTitle>
                     <AlertDialogDescription>

@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -7,10 +9,8 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
@@ -24,25 +24,23 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { parsedName } from "@/lib/utils";
 import { toast } from "sonner";
 
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { useModalStore } from "@/providers/modal-store-provider";
-
-import { useEffect, useId } from "react";
-import { useUpdateWorkspace } from "../api/use-update-workspace";
-import { useCurrentWorkSpace } from "../hooks/use-current-workspace";
+import { useCreateChannel } from "../api/use-create-channel";
 
 const formSchema = z.object({
-    name: z.string().min(1),
+    name: z.string().min(3).max(80),
 });
 
-export type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>;
 
-export const EditWorkspaceModal = () => {
+export const CreateChannelModal = () => {
     const { isOpen, type, onClose } = useModalStore((state) => state);
-    const isOpenModal = isOpen && type === "update-workspace";
+    const isModalOpen = isOpen && type === "create-channel";
 
-    const formId = useId();
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -50,45 +48,42 @@ export const EditWorkspaceModal = () => {
         },
     });
 
-    const { data: workspace } = useCurrentWorkSpace();
+    const workspaceId = useWorkspaceId();
+    const { mutate, isPending } = useCreateChannel();
 
-    useEffect(() => {
-        form.setValue("name", workspace?.name || "");
-    }, [form, workspace]);
+    const router = useRouter();
 
-    const { mutate, isPending } = useUpdateWorkspace();
-
-    if (!workspace) {
-        return null;
-    }
-
-    const onSubmit = (values: FormValues) => {
+    const onSubmit = ({ name }: FormValues) => {
         mutate(
             {
-                id: workspace._id!,
-                ...values,
+                name,
+                workspaceId,
             },
             {
-                onSuccess: () => {
+                onSuccess(id) {
                     onClose();
                     form.reset();
-                    toast.success("Workspace updated");
+
+                    router.push(`/workspaces/${workspaceId}/channels/${id}`);
+                    toast.success("Created new channel");
+                },
+                onError() {
+                    toast.error("Fail to create channel");
                 },
             },
         );
     };
 
     return (
-        <Dialog open={isOpenModal} onOpenChange={onClose}>
+        <Dialog open={isModalOpen} onOpenChange={onClose}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Edit</DialogTitle>
-                    <DialogDescription>Rename this workspace</DialogDescription>
+                    <DialogTitle>Add a channel</DialogTitle>
+                    <DialogDescription>Create new channel</DialogDescription>
                 </DialogHeader>
 
                 <Form {...form}>
                     <form
-                        id={formId}
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="space-y-4"
                     >
@@ -100,28 +95,28 @@ export const EditWorkspaceModal = () => {
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Workspace name e.g 'Work', 'Home', 'Personal'"
+                                            placeholder="e.g plan-budget"
                                             {...field}
+                                            onChange={(e) => {
+                                                field.onChange(
+                                                    parsedName(e.target.value),
+                                                );
+                                            }}
                                         />
                                     </FormControl>
+
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
+
+                        <div className="flex justify-end">
+                            <Button type="submit" disabled={isPending}>
+                                Create
+                            </Button>
+                        </div>
                     </form>
                 </Form>
-
-                <DialogFooter>
-                    <DialogClose asChild>
-                        <Button variant="outline" disabled={isPending}>
-                            Cancel
-                        </Button>
-                    </DialogClose>
-
-                    <Button type="submit" form={formId} disabled={isPending}>
-                        Save change
-                    </Button>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     );

@@ -4,13 +4,17 @@ import { Doc } from "../../convex/_generated/dataModel";
 export type ModalType =
     | "create-workspace"
     | "update-workspace"
-    | "delete-workspace";
+    | "delete-workspace"
+    | "create-channel"
+    | "invite";
 
 export type Workspace = Partial<Doc<"workspaces">>;
+export type Channel = Partial<Doc<"channels">>;
 
 export type ModalState = {
     type: ModalType | null;
     workspace?: Workspace;
+    channel?: Channel;
     isOpen: boolean;
 };
 
