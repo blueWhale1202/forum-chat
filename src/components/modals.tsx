@@ -1,6 +1,8 @@
 "use client";
 
 import { CreateWorkspaceModal } from "@/features/workspaces/components/create-workspace-modal";
+import { DeleteWorkspaceDialog } from "@/features/workspaces/components/delete-workspace-modal";
+import { EditWorkspaceModal } from "@/features/workspaces/components/edit-workspace-modal";
 
 import { useMounted } from "@/hooks/use-mounted";
 
@@ -12,6 +14,8 @@ export const Modals = () => {
     return (
         <div>
             <CreateWorkspaceModal />
+            <EditWorkspaceModal />
+            <DeleteWorkspaceDialog />
         </div>
     );
 };

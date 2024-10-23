@@ -2,9 +2,9 @@
 
 import { usePathname } from "next/navigation";
 
+import { SidebarButton } from "@/components/sidebar-button";
 import { UserButton } from "@/components/user-button";
-import { SidebarButton } from "./sidebar-button";
-import { WorkspaceSwitcher } from "./workspace-switcher";
+import { WorkspaceSwitcher } from "@/features/workspaces/components/workspace-switcher";
 
 import { Bell, Home, MessageSquare, MoreHorizontal } from "lucide-react";
 

@@ -10,13 +10,18 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 
-export const useConfirm = (title: string, message: string): [any, any] => {
-    const [promise, setPromise] = useState<{
-        resolve: (value: boolean) => void;
-    } | null>(null);
+type State = {
+    resolve: (value: boolean) => void;
+} | null;
+
+export const useConfirm = (
+    title = "Are you absolutely sure?",
+    message = "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+) => {
+    const [promise, setPromise] = useState<State>(null);
 
     const confirm = () =>
-        new Promise((resolve, reject) => {
+        new Promise<boolean>((resolve, reject) => {
             setPromise({ resolve });
         });
 
@@ -53,5 +58,5 @@ export const useConfirm = (title: string, message: string): [any, any] => {
         </Dialog>
     );
 
-    return [ConfirmDialog, confirm];
+    return { ConfirmDialog, confirm };
 };

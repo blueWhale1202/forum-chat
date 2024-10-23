@@ -1,17 +1,21 @@
 import { createStore } from "zustand/vanilla";
+import { Doc } from "../../convex/_generated/dataModel";
 
-export type ModalType = "create-workspace";
+export type ModalType =
+    | "create-workspace"
+    | "update-workspace"
+    | "delete-workspace";
 
-export type ModalData = {};
+export type Workspace = Partial<Doc<"workspaces">>;
 
 export type ModalState = {
     type: ModalType | null;
-    data: ModalData;
+    workspace?: Workspace;
     isOpen: boolean;
 };
 
 export type ModalActions = {
-    onOpen: (type: ModalType, data?: ModalData) => void;
+    onOpen: (type: ModalType, workspace?: Workspace) => void;
     onClose: () => void;
 };
 
@@ -20,13 +24,15 @@ export type ModalStore = ModalState & ModalActions;
 export const defaultInitState: ModalState = {
     type: null,
     isOpen: false,
-    data: {},
+    workspace: {},
 };
 
 export const createModalStore = (initState: ModalState = defaultInitState) => {
     return createStore<ModalStore>()((set) => ({
         ...initState,
-        onOpen: (type, data = {}) => set(() => ({ isOpen: true, type, data })),
-        onClose: () => set(() => ({ isOpen: false, type: null, data: {} })),
+        onOpen: (type, workspace) =>
+            set(() => ({ isOpen: true, type, workspace })),
+        onClose: () =>
+            set(() => ({ isOpen: false, type: null, workspace: {} })),
     }));
 };
