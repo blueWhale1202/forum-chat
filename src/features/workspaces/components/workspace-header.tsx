@@ -54,51 +54,53 @@ export const WorkspaceHeader = ({ workspace, isAdmin }: Props) => {
                             </p>
                         </div>
                     </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
                     {isAdmin && (
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem
-                                onClick={() => onOpen("invite", workspace)}
-                            >
-                                <p className="line-clamp-1">
-                                    Invite people to {workspace.name}
-                                </p>
-                            </DropdownMenuItem>
-                            <DropdownMenuSub>
-                                <DropdownMenuSubTrigger>
-                                    Preference
-                                </DropdownMenuSubTrigger>
-                                <DropdownMenuPortal>
-                                    <DropdownMenuSubContent>
-                                        <DropdownMenuItem
-                                            onClick={() =>
-                                                onOpen(
-                                                    "update-workspace",
-                                                    workspace,
-                                                )
-                                            }
-                                        >
-                                            <Edit className="size-4" />
-                                            Edit
-                                        </DropdownMenuItem>
+                        <>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuGroup>
+                                <DropdownMenuItem
+                                    onClick={() => onOpen("invite", workspace)}
+                                >
+                                    <p className="line-clamp-1">
+                                        Invite people to {workspace.name}
+                                    </p>
+                                </DropdownMenuItem>
+                                <DropdownMenuSub>
+                                    <DropdownMenuSubTrigger>
+                                        Preference
+                                    </DropdownMenuSubTrigger>
+                                    <DropdownMenuPortal>
+                                        <DropdownMenuSubContent>
+                                            <DropdownMenuItem
+                                                onClick={() =>
+                                                    onOpen(
+                                                        "update-workspace",
+                                                        workspace,
+                                                    )
+                                                }
+                                            >
+                                                <Edit className="size-4" />
+                                                Edit
+                                            </DropdownMenuItem>
 
-                                        <DropdownMenuItem
-                                            onClick={() =>
-                                                onOpen(
-                                                    "delete-workspace",
-                                                    workspace,
-                                                )
-                                            }
-                                        >
-                                            <Trash className="size-4 text-rose-600 hover:text-rose-600" />
-                                            <span className="text-rose-600 hover:text-rose-600">
-                                                Delete
-                                            </span>
-                                        </DropdownMenuItem>
-                                    </DropdownMenuSubContent>
-                                </DropdownMenuPortal>
-                            </DropdownMenuSub>
-                        </DropdownMenuGroup>
+                                            <DropdownMenuItem
+                                                onClick={() =>
+                                                    onOpen(
+                                                        "delete-workspace",
+                                                        workspace,
+                                                    )
+                                                }
+                                            >
+                                                <Trash className="size-4 text-rose-600 hover:text-rose-600" />
+                                                <span className="text-rose-600 hover:text-rose-600">
+                                                    Delete
+                                                </span>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuSubContent>
+                                    </DropdownMenuPortal>
+                                </DropdownMenuSub>
+                            </DropdownMenuGroup>
+                        </>
                     )}
                 </DropdownMenuContent>
             </DropdownMenu>

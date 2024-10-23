@@ -11,7 +11,7 @@ export const useCreateChannel = () => {
         onError: (error) => {
             const errorMessage =
                 error instanceof ConvexError
-                    ? (error.data as { message: string }).message
+                    ? error.data
                     : "Unexpected error occurred";
 
             toast.error(errorMessage);
