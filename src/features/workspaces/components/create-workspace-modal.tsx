@@ -52,6 +52,7 @@ export const CreateWorkspaceModal = () => {
     const onSubmit = (values: FormValues) => {
         mutate(values, {
             onSuccess(id) {
+                form.reset();
                 onClose();
                 toast.success("Workspace created");
                 router.push(`/workspaces/${id}`);

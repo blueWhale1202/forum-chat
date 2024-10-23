@@ -12,12 +12,23 @@ export const get = query({
     },
 });
 
+export const getById = query({
+    args: {
+        id: v.id("workspaces"),
+    },
+    handler: async (ctx, { id }) => {
+        await getCurrentUserOrThrow(ctx);
+
+        return await ctx.db.get(id);
+    },
+});
+
 export const create = mutation({
     args: {
         name: v.string(),
     },
     handler: async (ctx, { name }) => {
-        const { _id: userId } = await getCurrentUserOrThrow(ctx);
+        const { userId } = await getCurrentUserOrThrow(ctx);
         const joinCode = generateJoinCode();
 
         const workspaceId = await ctx.db.insert("workspaces", {

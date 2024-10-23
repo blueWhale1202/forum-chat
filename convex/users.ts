@@ -44,7 +44,10 @@ export const deleteFromClerk = internalMutation({
 export async function getCurrentUserOrThrow(ctx: QueryCtx) {
     const userRecord = await getCurrentUser(ctx);
     if (!userRecord) throw new Error("Unauthorized");
-    return userRecord;
+    return {
+        ...userRecord,
+        userId: userRecord._id,
+    };
 }
 
 export async function getCurrentUser(ctx: QueryCtx) {
