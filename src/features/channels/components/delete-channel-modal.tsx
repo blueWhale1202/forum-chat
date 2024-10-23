@@ -14,57 +14,56 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-import { toast } from "sonner";
-
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { useModalStore } from "@/providers/modal-store-provider";
+import { toast } from "sonner";
+import { useRemoveChannel } from "../api/use-remove-channel";
+import { useCurrentChannel } from "../hooks/use-current-channel";
 
-import { useDeleteWorkspace } from "../api/use-delete-workspace";
-import { useGetWorkSpaces } from "../api/use-get-workspaces";
-import { useCurrentWorkSpace } from "../hooks/use-current-workspace";
+export const DeleteChannelModal = () => {
+    const { isOpen, type, onClose } = useModalStore((state) => state);
+    const isModalOpen = isOpen && type === "delete-channel";
 
-export const DeleteWorkspaceModal = () => {
-    const { type, isOpen, onClose } = useModalStore((state) => state);
-    const isOpenModal = isOpen && type === "delete-workspace";
+    const workspaceId = useWorkspaceId();
 
-    const { data: currentWorkspace } = useCurrentWorkSpace();
-    const { data: workspaces } = useGetWorkSpaces();
-
-    const { mutate, isPending } = useDeleteWorkspace();
+    const { data: channel } = useCurrentChannel();
+    const { mutate, isPending } = useRemoveChannel();
 
     const router = useRouter();
 
-    if (!currentWorkspace || !workspaces) {
+    if (!channel) {
         return null;
     }
 
     const onDelete = () => {
         mutate(
             {
-                id: currentWorkspace._id!,
+                id: channel._id,
             },
             {
                 onSuccess: () => {
-                    router.replace(`/`);
-                    toast.success("Deleted workspace");
+                    router.replace(`/workspaces/${workspaceId}`);
+                    toast.success("Deleted channel");
+                },
+                onError: () => {
+                    toast.error("Fail to remove channel");
                 },
             },
         );
     };
 
     return (
-        <AlertDialog open={isOpenModal} onOpenChange={onClose}>
+        <AlertDialog open={isModalOpen} onOpenChange={onClose}>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>
                         Delete{" "}
-                        <span className="font-semibold">
-                            {currentWorkspace.name}
-                        </span>{" "}
-                        workspace?
+                        <span className="font-semibold">{channel.name}</span>{" "}
+                        channel?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
                         This action cannot be undone. This will permanently
-                        delete workspace and remove your data from our servers.
+                        delete channel and remove your data from our servers.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>

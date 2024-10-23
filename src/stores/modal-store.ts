@@ -6,6 +6,8 @@ export type ModalType =
     | "update-workspace"
     | "delete-workspace"
     | "create-channel"
+    | "update-channel"
+    | "delete-channel"
     | "invite";
 
 export type Workspace = Partial<Doc<"workspaces">>;

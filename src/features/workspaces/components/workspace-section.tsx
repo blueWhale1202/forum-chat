@@ -12,6 +12,7 @@ import { useMemberId } from "@/features/members/hooks/use-member-id";
 import { useModalStore } from "@/providers/modal-store-provider";
 
 import { useGetChannels } from "@/features/channels/api/use-get-channels";
+import { useChannelId } from "@/features/channels/hooks/use-channel-id";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 
 type Props = {
@@ -21,6 +22,7 @@ type Props = {
 export const WorkspaceSection = ({ currentMember }: Props) => {
     const onOpen = useModalStore((state) => state.onOpen);
 
+    const channelId = useChannelId();
     const memberId = useMemberId();
 
     const channels = useGetChannels();
@@ -45,7 +47,7 @@ export const WorkspaceSection = ({ currentMember }: Props) => {
                         id={channel._id}
                         label={channel.name}
                         Icon={Hash}
-                        isActive={false}
+                        isActive={channelId === channel._id}
                     />
                 ))}
             </SectionItem>
