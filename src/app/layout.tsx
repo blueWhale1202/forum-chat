@@ -26,7 +26,7 @@ export default function RootLayout({
                         <Modals />
                     </ModalStoreProvider>
                 </ConvexClientProvider>
-                <Toaster richColors theme="light" />
+                <Toaster richColors theme="light" position="top-center" />
             </body>
         </html>
     );
