@@ -16,6 +16,7 @@ const config: Config = {
                 "gray-2": "#616061",
                 "blue-1": "#112377",
                 "blue-2": "#25347a",
+                "green-1": "#007a5a",
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
                 card: {
@@ -88,6 +89,9 @@ const config: Config = {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
                 "caret-blink": "caret-blink 1.25s ease-out infinite",
+            },
+            fontFamily: {
+                lato: ["Lato", "sans-serif"],
             },
         },
     },

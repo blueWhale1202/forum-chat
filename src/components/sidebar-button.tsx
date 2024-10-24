@@ -20,7 +20,7 @@ export const SidebarButton = ({ Icon, label, isActive }: Props) => {
                     isActive && "bg-accent/20",
                 )}
             >
-                <Icon className="size-5 text-white transition-all group-hover:scale-110" />
+                <Icon className="size-4 text-white transition-all group-hover:scale-110" />
             </Button>
             <span className="text-xs text-white group-hover:text-accent">
                 {label}

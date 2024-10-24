@@ -72,3 +72,42 @@ body,
         @apply bg-background text-foreground;
     }
 }
+
+/* To overwrite style Quill editor */
+
+.ql-toolbar {
+    @apply !border-none !bg-[#f8f8f8];
+}
+
+.ql-toolbar .ql-formats:not(:last-child) {
+    @apply !border-r !border-solid !border-[#dcdcdc] !pr-3;
+}
+
+.ql-container {
+    @apply !font-lato !h-[unset] !border-none;
+}
+
+.ql-editor {
+    @apply !font-lato !px-3 !py-2 !text-sm !font-normal !text-[#1d1c1d];
+}
+
+.ql-editor a {
+    @apply !text-[#1264a3];
+}
+
+.ql-editor a:hover {
+    @apply !underline;
+}
+
+.ql-renderer {
+    @apply !p-0;
+}
+
+.ql-editor::before {
+    @apply !font-lato !left-3 !truncate !text-sm !font-normal !text-[#8d8d8d];
+}
+
+.msg-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #dcdcdc #f8f8f8;
+}
