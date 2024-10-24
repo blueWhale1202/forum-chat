@@ -12,6 +12,7 @@ import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { useModalStore } from "@/providers/modal-store-provider";
 
 import { ChevronDown, Edit, Trash } from "lucide-react";
+import { VideoCall } from "./video-call";
 
 type Props = {
     title: string;
@@ -61,6 +62,7 @@ export const ChannelHeader = ({ title }: Props) => {
             ) : (
                 <p className="truncate text-lg font-semibold"># {title}</p>
             )}
+            <VideoCall />
         </div>
     );
 };

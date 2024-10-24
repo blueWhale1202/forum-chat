@@ -3,37 +3,43 @@
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 
+import { EditorValues } from "@/types";
+import Quill from "quill";
+
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+
+import { ConvexError } from "convex/values";
+import { Doc, Id } from "../../../../convex/_generated/dataModel";
+
 import { useCreateMessage } from "@/features/messages/api/use-create-message";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-url";
 import { useUploadFile } from "@/features/upload/api/use-upload-image";
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { EditorValues } from "@/types";
-import { ConvexError } from "convex/values";
-import Quill from "quill";
+
+import { useModalStore } from "@/providers/modal-store-provider";
 import { toast } from "sonner";
-import { Doc } from "../../../../convex/_generated/dataModel";
-import { useChannelId } from "../hooks/use-channel-id";
 
 const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
 
 type CreateMessage = Pick<
     Doc<"messages">,
-    "channelId" | "workspaceId" | "body" | "image"
+    "conversationId" | "workspaceId" | "body" | "image"
 >;
 
 type Props = {
     placeholder: string;
+    conversationId: Id<"conversations">;
 };
 
-export const ChatInput = ({ placeholder }: Props) => {
+export const ChatInput = ({ placeholder, conversationId }: Props) => {
     const editorRef = useRef<Quill>(null);
     const [isPending, setIsPending] = useState(false);
+
+    const onScroll = useModalStore((state) => state.onScroll);
 
     //  To reset state of editor
     const [editorKey, setEditorKey] = useState(0);
 
     const workspaceId = useWorkspaceId();
-    const channelId = useChannelId();
 
     const createMessage = useCreateMessage();
     const generateUrl = useGenerateUploadUrl();
@@ -46,7 +52,7 @@ export const ChatInput = ({ placeholder }: Props) => {
 
             const message: CreateMessage = {
                 body,
-                channelId,
+                conversationId,
                 workspaceId,
                 image: undefined,
             };
@@ -64,6 +70,8 @@ export const ChatInput = ({ placeholder }: Props) => {
             await createMessage.mutateAsync(message);
 
             setEditorKey((prev) => prev + 1);
+
+            onScroll();
         } catch (error) {
             const errorMessage =
                 error instanceof ConvexError

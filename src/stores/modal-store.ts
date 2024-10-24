@@ -18,10 +18,12 @@ export type ModalState = {
     workspace?: Workspace;
     channel?: Channel;
     isOpen: boolean;
+    triggerScroll?: number;
 };
 
 export type ModalActions = {
     onOpen: (type: ModalType, workspace?: Workspace) => void;
+    onScroll: () => void;
     onClose: () => void;
 };
 
@@ -30,6 +32,7 @@ export type ModalStore = ModalState & ModalActions;
 export const defaultInitState: ModalState = {
     type: null,
     isOpen: false,
+    triggerScroll: 0,
     workspace: {},
 };
 
@@ -40,5 +43,10 @@ export const createModalStore = (initState: ModalState = defaultInitState) => {
             set(() => ({ isOpen: true, type, workspace })),
         onClose: () =>
             set(() => ({ isOpen: false, type: null, workspace: {} })),
+        onScroll: () =>
+            set((state) => ({
+                ...state,
+                triggerScroll: state.triggerScroll || 0 + 1,
+            })),
     }));
 };

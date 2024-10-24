@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { Modals } from "@/components/modals";
 import { Toaster } from "@/components/ui/sonner";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
 import { ModalStoreProvider } from "@/providers/modal-store-provider";
@@ -21,7 +22,7 @@ export default function RootLayout({
             <body className={inter.className}>
                 <ConvexClientProvider>
                     <ModalStoreProvider>
-                        {children}
+                        <NuqsAdapter>{children}</NuqsAdapter>
                         <Modals />
                     </ModalStoreProvider>
                 </ConvexClientProvider>
