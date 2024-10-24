@@ -9,7 +9,7 @@ const nextConfig = {
             },
             {
                 protocol: "https",
-                hostname: "lovable-goat-937.convex.cloud",
+                hostname: "https://good-cricket-565.convex.cloud",
                 pathname: "/api/storage/**",
             },
         ],
