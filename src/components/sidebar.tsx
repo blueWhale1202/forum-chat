@@ -6,12 +6,13 @@ import { SidebarButton } from "@/components/sidebar-button";
 import { UserButton } from "@/components/user-button";
 import { WorkspaceSwitcher } from "@/features/workspaces/components/workspace-switcher";
 
-import { Bell, Home, MessageSquare, MoreHorizontal } from "lucide-react";
+import { Bell, Home, MessageSquare } from "lucide-react";
+import { Tools } from "./tools";
 
 export const Sidebar = () => {
     const pathname = usePathname();
     return (
-        <aside className="bg-blue-1 flex h-full w-[70px] flex-col items-center gap-y-4 pb-4 pt-[9px]">
+        <aside className="flex h-full w-[70px] flex-col items-center gap-y-4 bg-blue-1 pb-4 pt-[9px]">
             <WorkspaceSwitcher />
 
             <SidebarButton
@@ -21,7 +22,7 @@ export const Sidebar = () => {
             />
             <SidebarButton Icon={MessageSquare} label="DMs" />
             <SidebarButton Icon={Bell} label="Activity" />
-            <SidebarButton Icon={MoreHorizontal} label="More" />
+            <Tools />
 
             <div className="mt-auto flex flex-col items-center justify-center gap-y-1">
                 <UserButton />

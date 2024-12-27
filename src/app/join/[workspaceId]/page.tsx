@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +19,6 @@ import { Loader, TriangleAlert } from "lucide-react";
 import { useWorkspaceInfo } from "@/features/workspaces/api/use-get-info";
 import { useJoinWorkspace } from "@/features/workspaces/api/use-join-workspace";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { useEffect } from "react";
 
 export default function JoinPage() {
     const workspaceId = useWorkspaceId();

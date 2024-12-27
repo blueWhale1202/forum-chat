@@ -1,9 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { Headset } from "lucide-react";
 import { useRouter } from "next/navigation";
+
+import { Button } from "@/components/ui/button";
+import { Headset } from "lucide-react";
+
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
 export const VideoCall = () => {
     const workspaceId = useWorkspaceId();

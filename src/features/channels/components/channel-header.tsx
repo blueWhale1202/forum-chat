@@ -8,11 +8,12 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useCurrentMember } from "@/features/members/api/use-current-member";
-import { useModalStore } from "@/providers/modal-store-provider";
 
 import { ChevronDown, Edit, Trash } from "lucide-react";
 import { VideoCall } from "./video-call";
+
+import { useCurrentMember } from "@/features/members/api/use-current-member";
+import { useModalStore } from "@/providers/modal-store-provider";
 
 type Props = {
     title: string;

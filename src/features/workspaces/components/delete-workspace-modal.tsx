@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 import { useModalStore } from "@/providers/modal-store-provider";
-
 import { useDeleteWorkspace } from "../api/use-delete-workspace";
 import { useGetWorkSpaces } from "../api/use-get-workspaces";
 import { useCurrentWorkSpace } from "../hooks/use-current-workspace";

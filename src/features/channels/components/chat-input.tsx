@@ -1,17 +1,19 @@
 "use client";
 
+import { EditorValues } from "@/types";
+import { ConvexError } from "convex/values";
+import { Doc } from "../../../../convex/_generated/dataModel";
+
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
+
+import Quill from "quill";
+import { toast } from "sonner";
 
 import { useCreateMessage } from "@/features/messages/api/use-create-message";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-url";
 import { useUploadFile } from "@/features/upload/api/use-upload-image";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { EditorValues } from "@/types";
-import { ConvexError } from "convex/values";
-import Quill from "quill";
-import { toast } from "sonner";
-import { Doc } from "../../../../convex/_generated/dataModel";
 import { useChannelId } from "../hooks/use-channel-id";
 
 const Editor = dynamic(() => import("@/components/editor"), { ssr: false });

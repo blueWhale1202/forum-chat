@@ -2,13 +2,14 @@
 
 import { Id } from "../../../../../../convex/_generated/dataModel";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Loader, TriangleAlert } from "lucide-react";
+import { Conversation } from "@/features/conversation/components/conversation";
 
+import { Loader, TriangleAlert } from "lucide-react";
 import { toast } from "sonner";
 
-import { Conversation } from "@/features/conversation/components/conversation";
 import { useCreateOrGetConversation } from "@/features/conversation/hooks/use-create-get-conversation";
 import { useMemberId } from "@/features/members/hooks/use-member-id";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
@@ -21,6 +22,7 @@ export default function MemberIdPage() {
         useState<Id<"conversations"> | null>(null);
 
     const { mutate, isPending } = useCreateOrGetConversation();
+    const router = useRouter();
 
     useEffect(() => {
         mutate(
@@ -34,10 +36,11 @@ export default function MemberIdPage() {
                 },
                 onError: () => {
                     toast.error("Fail to create or get conversation");
+                    router.replace("/");
                 },
             },
         );
-    }, [workspaceId, memberId, mutate]);
+    }, [workspaceId, memberId, mutate, router]);
 
     if (isPending) {
         return (

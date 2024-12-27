@@ -2,12 +2,11 @@
 
 import { Doc, Id } from "../../../../convex/_generated/dataModel";
 
-import { cn } from "@/lib/utils";
-
 import { EmojiPopover } from "@/components/emoji-popover";
 import { Hint } from "@/components/hint";
-
 import { useCurrentMember } from "@/features/members/api/use-current-member";
+
+import { cn } from "@/lib/utils";
 import { SmilePlus } from "lucide-react";
 
 type Props = {

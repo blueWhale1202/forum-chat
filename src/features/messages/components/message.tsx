@@ -1,27 +1,24 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
 import { Doc, Id } from "../../../../convex/_generated/dataModel";
+
+import dynamic from "next/dynamic";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { Hint } from "@/components/hint";
+import { Reactions } from "@/features/reactions/components/reactions";
 import { ThreadBar } from "./thread-bar";
 import { Thumbnail } from "./thumbnail";
 import { Toolbar } from "./toolbar";
 
 import { cn } from "@/lib/utils";
 import { format, isToday, isYesterday } from "date-fns";
-
 import { toast } from "sonner";
-
-import { Reactions } from "@/features/reactions/components/reactions";
 
 import { usePanel } from "@/features/messages/hooks/use-panel";
 import { useToggleReaction } from "@/features/reactions/api/use-toggle-reaction";
 import { useConfirm } from "@/hooks/use-confirm";
-
 import { useDeleteMessage } from "../api/use-delete-message";
 import { useUpdateMessage } from "../api/use-update-message";
 

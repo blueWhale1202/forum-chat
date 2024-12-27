@@ -1,5 +1,11 @@
 "use client";
 
+import { Poppins } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
     CommandDialog,
@@ -11,14 +17,18 @@ import {
     CommandSeparator,
 } from "@/components/ui/command";
 
-import { Info, Search } from "lucide-react";
-
 import { useGetChannels } from "@/features/channels/api/use-get-channels";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { useGetWorkSpace } from "@/features/workspaces/api/use-get-workspace";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+
+import { cn } from "@/lib/utils";
+import { Search } from "lucide-react";
+
+const poppins = Poppins({
+    subsets: ["latin"],
+    weight: ["200", "300", "400", "500", "600", "700", "800"],
+});
 
 export const Toolbar = () => {
     const workspaceId = useWorkspaceId();
@@ -48,13 +58,37 @@ export const Toolbar = () => {
         setOpen(false);
     };
     return (
-        <nav className="flex h-10 items-center justify-between bg-blue-1 p-1.5">
-            <div className="flex-1" />
+        <nav className="flex h-14 items-center justify-between bg-blue-1 p-1.5">
+            <Link className="flex flex-1 items-center gap-x-2 pl-2" href="/">
+                <div className="flex items-center gap-x-4">
+                    <div className="mr-12 shrink-0 rounded-full p-1 lg:mr-0 lg:shrink">
+                        <Image
+                            src="/logo.svg"
+                            alt="DevTalk Hub"
+                            height={32}
+                            width={32}
+                        />
+                    </div>
+                    <div
+                        className={cn(
+                            poppins.className,
+                            "hidden text-white lg:block",
+                        )}
+                    >
+                        <p className="text-lg font-semibold leading-tight">
+                            DevTalk Hub
+                        </p>
+                        <p className="text-xs leading-none text-gray-200">
+                            Code, Learn, and Collaborate
+                        </p>
+                    </div>
+                </div>
+            </Link>
 
             <div className="min-w-[280px] max-w-[642px] shrink grow-[2]">
                 <Button
                     size="sm"
-                    className="h-7 w-full justify-start bg-accent/25 px-2 hover:bg-accent/30"
+                    className="h-8 w-full justify-start bg-accent/25 px-2 hover:bg-accent/30"
                     onClick={() => setOpen(true)}
                 >
                     <Search className="mr-2 size-4 text-white" />
@@ -102,11 +136,7 @@ export const Toolbar = () => {
                 </CommandDialog>
             </div>
 
-            <div className="ml-auto flex flex-1 items-center justify-end">
-                <Button variant="transparent" size={"icon-sm"}>
-                    <Info className="size-4 text-white" />
-                </Button>
-            </div>
+            <div className="ml-auto flex-1" />
         </nav>
     );
 };

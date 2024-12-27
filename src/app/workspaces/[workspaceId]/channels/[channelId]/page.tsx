@@ -1,11 +1,15 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { ChannelHeader } from "@/features/channels/components/channel-header";
 import { ChatInput } from "@/features/channels/components/chat-input";
+import { MessageList } from "@/features/messages/components/message-list";
+
+import { Loader, TriangleAlert } from "lucide-react";
+
 import { useCurrentChannel } from "@/features/channels/hooks/use-current-channel";
 import { useGetMessages } from "@/features/messages/api/use-get-messages";
-import { MessageList } from "@/features/messages/components/message-list";
-import { Loader, TriangleAlert } from "lucide-react";
 
 export default function ChannelIdPage() {
     const { isPending, data: channel } = useCurrentChannel();
@@ -13,6 +17,7 @@ export default function ChannelIdPage() {
     const { results, status, loadMore } = useGetMessages({
         channelId: channel?._id,
     });
+    const router = useRouter();
 
     if (isPending || status === "LoadingFirstPage") {
         return (
@@ -23,6 +28,7 @@ export default function ChannelIdPage() {
     }
 
     if (!channel) {
+        router.replace("/");
         return (
             <div className="flex h-full flex-1 flex-col items-center justify-center gap-y-2">
                 <TriangleAlert className="size-5 text-muted-foreground" />

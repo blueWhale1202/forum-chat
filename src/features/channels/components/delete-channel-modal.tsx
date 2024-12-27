@@ -14,9 +14,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
+import { toast } from "sonner";
+
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { useModalStore } from "@/providers/modal-store-provider";
-import { toast } from "sonner";
 import { useRemoveChannel } from "../api/use-remove-channel";
 import { useCurrentChannel } from "../hooks/use-current-channel";
 

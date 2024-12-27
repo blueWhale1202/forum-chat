@@ -10,16 +10,16 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 
+import { Hint } from "@/components/hint";
 import { CheckCheck, LinkIcon, RefreshCcw } from "lucide-react";
-import { toast } from "sonner";
 
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useModalStore } from "@/providers/modal-store-provider";
-
-import { Hint } from "@/components/hint";
-import { cn } from "@/lib/utils";
 import { useNewJoinCode } from "../api/use-new-join-code";
 import { useCurrentWorkSpace } from "../hooks/use-current-workspace";
+
+import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 export const InviteModal = () => {
     const { isOpen, type, onClose } = useModalStore((state) => state);

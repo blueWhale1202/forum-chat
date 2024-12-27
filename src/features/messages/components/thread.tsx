@@ -1,7 +1,5 @@
 "use client";
 
-import Quill from "quill";
-
 import { EditorValues } from "@/types";
 import { ConvexError } from "convex/values";
 import { Doc, Id } from "../../../../convex/_generated/dataModel";
@@ -14,22 +12,22 @@ import { Loader, TriangleAlert, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-
-import { toast } from "sonner";
-
 import { Message } from "./message";
 
 import { useChannelId } from "@/features/channels/hooks/use-channel-id";
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { useInView } from "react-intersection-observer";
-
 import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-url";
 import { useUploadFile } from "@/features/upload/api/use-upload-image";
-import { differenceInMinutes, format, isToday, isYesterday } from "date-fns";
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+import { useInView } from "react-intersection-observer";
 import { useCreateMessage } from "../api/use-create-message";
 import { useGetMessageById } from "../api/use-get-message";
 import { useGetMessages } from "../api/use-get-messages";
+
+import Quill from "quill";
+
+import { differenceInMinutes, format, isToday, isYesterday } from "date-fns";
+import { toast } from "sonner";
 
 const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
 

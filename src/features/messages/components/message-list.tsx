@@ -2,22 +2,21 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Id } from "../../../../convex/_generated/dataModel";
+import { GetMessagesReturnType } from "../api/use-get-messages";
+
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 
 import { ConversationHero } from "@/features/conversation/components/conversation-hero";
 import { ChannelHero } from "./channel-hero";
 import { Message } from "./message";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-
-import { GetMessagesReturnType } from "../api/use-get-messages";
-
-import { useInView } from "react-intersection-observer";
-
 import { Loader } from "lucide-react";
 
 import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { useModalStore } from "@/providers/modal-store-provider";
+import { useInView } from "react-intersection-observer";
+
 import { differenceInMinutes, format, isToday, isYesterday } from "date-fns";
 
 type Props = {

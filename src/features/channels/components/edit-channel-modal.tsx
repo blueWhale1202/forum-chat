@@ -1,7 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useId } from "react";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -26,8 +27,10 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { useModalStore } from "@/providers/modal-store-provider";
+
 import { toast } from "sonner";
+
+import { useModalStore } from "@/providers/modal-store-provider";
 import { useUpdateChannel } from "../api/use-update-channel";
 import { useCurrentChannel } from "../hooks/use-current-channel";
 

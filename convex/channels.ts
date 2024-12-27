@@ -1,7 +1,8 @@
 import { ConvexError, v } from "convex/values";
-import { parsedName } from "../src/lib/utils";
 import { mutation, query } from "./_generated/server";
 import { getCurrentUserOrThrow } from "./users";
+
+import { parsedName } from "../src/lib/utils";
 
 export const get = query({
     args: {

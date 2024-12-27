@@ -1,5 +1,7 @@
 "use client";
 
+import { Id } from "../../../../convex/_generated/dataModel";
+
 import {
     ResizableHandle,
     ResizablePanel,
@@ -8,13 +10,13 @@ import {
 
 import { Sidebar } from "@/components/sidebar";
 import { Toolbar } from "@/components/toolbar";
+import { Loader } from "lucide-react";
 
 import { Profile } from "@/features/members/components/profile";
 import { Thread } from "@/features/messages/components/thread";
-import { usePanel } from "@/features/messages/hooks/use-panel";
 import { WorkspaceSidebar } from "@/features/workspaces/components/workspace-sidebar";
-import { Loader } from "lucide-react";
-import { Id } from "../../../../convex/_generated/dataModel";
+
+import { usePanel } from "@/features/messages/hooks/use-panel";
 
 type Props = {
     children: React.ReactNode;
@@ -28,7 +30,7 @@ const WorkspaceLayout = ({ children }: Props) => {
     return (
         <div className="h-full">
             <Toolbar />
-            <div className="flex h-[calc(100vh-40px)]">
+            <div className="flex h-[calc(100vh-56px)]">
                 <Sidebar />
 
                 <ResizablePanelGroup direction="horizontal">

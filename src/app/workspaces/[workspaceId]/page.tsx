@@ -1,12 +1,15 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+import { Loader, TriangleAlert } from "lucide-react";
+
+import { useModalStore } from "@/providers/modal-store-provider";
+
 import { useGetChannels } from "@/features/channels/api/use-get-channels";
 import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { useCurrentWorkSpace } from "@/features/workspaces/hooks/use-current-workspace";
-import { useModalStore } from "@/providers/modal-store-provider";
-import { Loader, TriangleAlert } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function WorkspaceIdPage() {
     const router = useRouter();

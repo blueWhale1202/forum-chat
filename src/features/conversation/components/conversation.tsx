@@ -6,11 +6,12 @@ import { MessageList } from "@/features/messages/components/message-list";
 import { ChatInput } from "./chat-input";
 import { ConversationHeader } from "./conversation-header";
 
+import { Loader } from "lucide-react";
+
 import { useGetMemberById } from "@/features/members/api/use-get-member-by-id";
 import { useMemberId } from "@/features/members/hooks/use-member-id";
 import { useGetMessages } from "@/features/messages/api/use-get-messages";
 import { usePanel } from "@/features/messages/hooks/use-panel";
-import { Loader } from "lucide-react";
 
 type Props = {
     id: Id<"conversations">;

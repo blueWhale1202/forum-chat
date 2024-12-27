@@ -3,6 +3,7 @@ import { Doc, Id } from "../../../../convex/_generated/dataModel";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -11,13 +12,10 @@ import {
     DropdownMenuRadioItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
 
 import { ChevronDown, Loader, Mail, TriangleAlert, X } from "lucide-react";
-
 import { toast } from "sonner";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
 
 import { useConfirm } from "@/hooks/use-confirm";
 import { useCurrentMember } from "../api/use-current-member";
